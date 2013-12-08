@@ -1,0 +1,52 @@
+* Using Jekyll to publish Org mode texts
+
+This repository documents how to setup a Jekyll site that is able to
+export Org mode files, as well as the flow that I use for publishing them.
+
+** Setup
+
+Install =Jekyll= and also (optionally) =re-org= for creating 
+new Org files based on templates.
+
+#+begin_src sh :tangle setup.sh
+gem install jekyll
+gem install re-org
+#+end_src
+
+Now fetch the =OrgJekyll= submodule that would enable us stop using
+the YAML front matter and instead rely on Org mode syntax:
+
+#+begin_src sh :tangle setup.sh
+git submodule init
+git submodule update
+#+end_src
+
+** Creating a new writing
+
+#+begin_src sh
+re-org new jekyll-post --title=hello-world
+#+end_src
+
+Would create this file in ~_drafts/2013-12-09-hello-world.org~:
+
+#+begin_src org
+  ,#+title:         Hello world
+  ,#+date:          2013-12-09
+  ,#+layout:        post
+  ,#+category:      posts
+  
+  ,Your content would go here!
+  
+#+end_src
+
+Once you are done writing, publish and render it with =jekyll server
+--drafts=. Or in case your writing is already done:
+
+#+begin_src sh
+mv _drafts/2013-12-09-hello-world.org _posts/
+jekyll server
+#+end_src
+
+Then just publish the generated HTML in =_site= on the hosting of your preference.
+
+Hope this helps!
